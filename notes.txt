@@ -1,0 +1,201 @@
+/* NOTES
+    Put all global functions into the fretboard object
+    Add in toggle to remove from highlight lists
+    Abstract out the highlight checker for both displays
+    Add in logic to keep display on correct display while highlighting
+    
+    Google "good examples of modern JS code bases"
+*/
+
+// Global object for easy reference.
+
+import { test }  from './modules/testModule.js';
+
+var fretboard = {
+    element: '',
+    menuElements: {
+        viewNotes: {},
+        viewIntervals: {},
+        highlightNotes: [],
+        highlightIntervals: []
+    },
+    notes: ['A','A#/Bb','B','C','C#/Db','D','D#/Eb','E','F','F#/Gb','G','G#/Ab'],
+    intervals: ['O/U','m2','M2','m3','M3','P4','TT','P5','m6','M6','m7','M7'],
+    stringNotes: [7,0,5,10,2,7],
+    fretLength: 24,
+    frets: [
+        new Array(this.fretLength),
+        new Array(this.fretLength),
+        new Array(this.fretLength),
+        new Array(this.fretLength),
+        new Array(this.fretLength),
+        new Array(this.fretLength)
+    ],
+    root: 7,
+    highlights: {
+        intervals: []
+    },
+};
+function Fret() {
+    this.element;
+    this.note;
+    this.interval;
+
+    this.setNote = function(note) {
+        this.note = note;
+    }
+    this.getNote = function() {
+        return this.note;
+    }
+    this.getNoteName = function() {
+        return fretboard.notes[this.note];
+    }
+    this.setElement = function(element) {
+        this.element = element;
+    }
+    this.getElement = function() {
+        return this.element;
+    }
+    this.setInterval = function(interval) {
+        this.interval = interval;
+    }
+    this.getInterval = function() {
+        return this.interval;
+    }
+    this.getIntervalName = function() {
+        return fretboard.intervals[this.interval];
+    }
+}
+function setGeneralElements() {
+    fretboard.element = document.querySelector("#fretboard");
+    fretboard.menuElements.viewNotes = document.querySelector("#view-notes");
+    fretboard.menuElements.viewIntervals = document.querySelector("#view-intervals");
+    let tempHighlightList = document.querySelectorAll(".highlight");
+    for (let highlight of tempHighlightList) {
+        if (highlight.dataset.type == "note") {
+            fretboard.menuElements.highlightNotes.push(highlight);
+        } else {
+            fretboard.menuElements.highlightIntervals.push(highlight);
+        }
+    }
+}
+function setFretNotes() {
+    for (let j = fretboard.stringNotes.length - 1; j >= 0; j--) {
+        let note = fretboard.stringNotes[j];
+        for (let i = 0; i < fretboard.fretLength; i++) {
+            fretboard.frets[j][i] = new Fret();
+            fretboard.frets[j][i].setNote(note);
+            note = (note + 1) % 12;
+        }
+    }
+}
+function setFretIntervals() {
+    let interval = 0;
+    for (let j = 0; j < fretboard.stringNotes.length; j++) {
+        for (let i = 0; i < fretboard.fretLength; i++) {
+            interval = (fretboard.frets[j][i].getNote() + (12 - fretboard.root)) % 12;
+            fretboard.frets[j][i].setInterval(interval);
+        }
+    }
+}
+function setFretElements() {
+    // Clear fretboard for reintilization.
+    fretboard.element.innerHTML = "";
+    for (let j = fretboard.stringNotes.length - 1; j >= 0; j--) {
+        let string = document.createElement("div");
+        string.classList.add("string");
+        for (let i = 0; i < fretboard.fretLength; i++) {
+            let fretElement = document.createElement("div");
+            fretElement.classList.add("fret");
+            fretElement.classList.add(`note-${fretboard.frets[j][i].getNote()}`);
+            fretElement.classList.add(`interval-${fretboard.frets[j][i].getInterval()}`);
+            fretboard.frets[j][i].setElement(fretElement);
+            string.append(fretElement);
+        }
+        fretboard.element.append(string);
+    }
+    displayHighlights();
+}
+function setEventListeners() {
+    fretboard.menuElements.viewIntervals.addEventListener("click", function(event) {
+        displayFretboardIntervals();
+    });
+    fretboard.menuElements.viewNotes.addEventListener("click", function(event) {
+        displayFretboardNoteNames();
+    });
+    // Set Frets to change to interval on mouse click.
+    for (let j = fretboard.stringNotes.length - 1; j >= 0; j--) {
+        for (let i = 0; i < fretboard.fretLength; i++) {
+            fretboard.frets[j][i].getElement().addEventListener("click", function(event) {
+                fretboard.root = fretboard.frets[j][i].getNote();
+                setFretIntervals();
+                setFretElements();
+                displayFretboardIntervals();
+            });
+        }
+    }
+    // Set Highlight Buttons trigger highlighting certain notes or intervals on click.
+    for (let i = 0; i < fretboard.menuElements.highlightNotes.length; i++) {
+        let tempNote = fretboard.menuElements.highlightNotes[i];
+        tempNote.addEventListener("click", function(event) {
+            //toggleHighlight("notes", tempNote.dataset.id);
+            //displayFretboardNoteNames();
+            //displayHighlights();
+        });
+    }
+    for (let i = 0; i < fretboard.menuElements.highlightIntervals.length; i++) {
+        let tempInterval = fretboard.menuElements.highlightIntervals[i];
+            tempInterval.addEventListener("click", function(event) {
+            toggleHighlight("intervals", tempInterval.dataset.id);
+            displayFretboardIntervals();
+            displayHighlights();
+        });
+    }
+}
+function toggleHighlight(type, id) {
+    if (!fretboard.highlights[type].includes(id)) {
+        fretboard.highlights[type].push(id);
+    } else {
+        fretboard.highlights[type].splice(fretboard.highlights[type].indexOf(id), 1);
+    }
+}
+function displayFretboardNoteNames() {
+    for (let j = fretboard.stringNotes.length - 1; j >= 0; j--) {
+        for (let i = 0; i < fretboard.fretLength; i++) {
+            fretboard.frets[j][i].getElement().innerText = fretboard.frets[j][i].getNoteName();
+        }
+    }
+}
+function displayFretboardIntervals() {
+    for (let j = fretboard.stringNotes.length - 1; j >= 0; j--) {
+        for (let i = 0; i < fretboard.fretLength; i++) {
+            fretboard.frets[j][i].getElement().innerText = fretboard.frets[j][i].getIntervalName();
+        }
+    }
+}
+function displayHighlights() {
+    clearDisplayHighlights();
+    fretboard.highlights.intervals.forEach((interval) => {
+        document.documentElement.style.setProperty(`--interval-${interval}`, "#000");
+    });
+}
+
+function clearDisplayHighlights() {
+    fretboard.intervals.forEach((interval, index) => {
+        document.documentElement.style.setProperty(`--interval-${index}`, "inheret");
+    });
+}
+
+function initApp() {
+    setGeneralElements();
+    // Set frets for notes and intervals.
+    setFretNotes();
+    setFretIntervals();
+    setFretElements();
+    // Set event Listeners.
+    setEventListeners();
+    // Display Elements.
+    displayFretboardNoteNames();
+
+    test();
+}
