@@ -1,4 +1,8 @@
-import makeFretboard from './modules/fretboard.js';
-const fretboard = makeFretboard();
+// Import all necessary classes
+// FretStore for all Fret states
+import { makeFretStore } from './modules/fretStore.js';
 
-console.log(fretboard);
+// Fretboard creator
+const fretStore = makeFretStore();
+
+console.log(fretStore);
