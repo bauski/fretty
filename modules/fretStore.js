@@ -1,26 +1,36 @@
 // Default Music Rules
-import { music } from './music.js';
+import { music, noteToIndex, indexToNote } from './music.js';
 import { makeFret } from './fret.js';
 
+const FRET_LENGTH = 24;
+const STRING_NOTES = ['E', 'B', 'G', 'D', 'A', 'E'];
+
 export const makeFretStore = (
-    fretLength = 24,
-    stringNotes = ['E', 'A', 'D', 'G', 'B', 'E'],
-    root = 7
+    root = 'E',
+    fretLength = FRET_LENGTH,
+    stringNotes = STRING_NOTES
 ) => {
     return {
         stringNotes: stringNotes,
         fretLength: fretLength,
-        frets: [...Array(6)].map(
-            x => [...Array(fretLength)].map(
-                (_, i) => {
-                    let note = i + music.NoteToIndex();
-                    return makeFret(note)
-                }
-            )
-        ),
+        frets: makeFrets(root, fretLength, stringNotes),
         root: root,
         highlights: {
             intervals: []
         }
     };
+}
+
+const makeFrets = (root = 'E', fretLength = FRET_LENGTH, stringNotes = STRING_NOTES) => {
+    return [...Array(6)].map(
+        (string, stringIndex) => [...Array(fretLength)].map(
+            (fret, fretIndex) => {
+                const fretStringIndex = noteToIndex(stringNotes[stringIndex]) + fretIndex;
+                const note = indexToNote(fretStringIndex % music.notes.length);
+                const fretIntervalIndex = fretStringIndex + music.notes.length - noteToIndex(root);
+                const interval = fretIntervalIndex % music.notes.length;
+                return makeFret(note, interval);
+            }
+        )
+    )
 }

@@ -1,3 +1,6 @@
+* use from or map on string notes to get indexes
+* in the first level of the frets array.map, figure out what index we need from stringNotes
+
 Main
     Call  
 Fret model

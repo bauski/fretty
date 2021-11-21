@@ -1,8 +1,9 @@
 export const makeFret = (
-    note = 0
+    note = 0,
+    interval = 0
 ) => {
     return {
         note: note,
-        interval: 0
+        interval: interval
     };
 }
