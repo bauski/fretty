@@ -1,5 +1,9 @@
-* use from or map on string notes to get indexes
-* in the first level of the frets array.map, figure out what index we need from stringNotes
+Mount simply finds element and puts in the display
+display returns HTML elements
+Look into fretStore observer (it will go into the mount function)
+all use single quotes
+learn how to setup and run linter
+fix my ctrl+g to not be git and be goto line
 
 Main
     Call  
