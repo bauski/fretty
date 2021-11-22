@@ -9,4 +9,4 @@ const fretStore = makeFretStore();
 let fretboardDisplay = displayFretboard(fretStore);
 let menuDisplay = displayMenu(fretStore);
 mount('#fretboard-viewport', fretboardDisplay);
-//mount('#menuViewport',menuDisplay);
+mount('#menu-viewport',menuDisplay);
