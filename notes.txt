@@ -1,4 +1,4 @@
-Look into fretStore observer (it will go into the mount function)
+Finish highlight display
 all use single quotes
 learn how to setup and run linter
 

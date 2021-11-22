@@ -73,7 +73,7 @@ const displayMenu = (
     // Add Intervals Buttons
     musicSet.intervals.forEach((interval, intervalIndex) => {
         const intervalHighlightButton = makeButton(
-            `highlight-note-${intervalIndex}`,
+            `highlight-interval-${intervalIndex}`,
             interval,
             ['pill','highlight'],
             {id:intervalIndex,type:'interval'}

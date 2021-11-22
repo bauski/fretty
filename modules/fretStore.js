@@ -16,10 +16,8 @@ export const makeFretStore = (
         fretLength: fretLength,
         frets: makeFrets(root, fretLength, stringNotes),
         root: root,
-        highlights: {
-            notes: [],
-            intervals: []
-        },
+        highlightNotes: [],
+        highlightIntervals: [],
         setIntervals: makeFrets
     };
 }
