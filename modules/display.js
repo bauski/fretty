@@ -5,6 +5,7 @@ const mount = (
     display
 ) => { 
     const viewport = document.querySelector(id);
+    viewport.innerHTML = '';
     viewport.appendChild(display);
 }
 
@@ -18,9 +19,11 @@ const displayFretboard = (
         stringElement.classList.add('string',`string-${stringIndex}`);
         string.forEach((fret, fretIndex) => {
             const fretElement = document.createElement('div');
-            fretElement.classList.add('fret',`fret-${stringIndex}-${fretIndex}`);
-            const fretText = document.createTextNode(fret.note);
-            fretElement.appendChild(fretText);
+            fretElement.id = `fret-${stringIndex}-${fretIndex}`;
+            fretElement.classList.add('fret');
+            const fretText = fretStore.viewToggle === 'notes' ? fret.note : fret.interval;
+            const fretTextNode = document.createTextNode(fretText);
+            fretElement.appendChild(fretTextNode);
             stringElement.appendChild(fretElement);
         });
         fretboard.appendChild(stringElement);
@@ -33,7 +36,6 @@ const displayMenu = (
     musicSet = music
 ) => {
     const menuElement = document.createElement('div');
-    // Add View Title
     const viewsTitle = makeTitle('Views','h3');
     menuElement.appendChild(viewsTitle);
     // Add view buttons
@@ -58,7 +60,7 @@ const displayMenu = (
     // Add Notes Buttons
     musicSet.notes.forEach((note, noteIndex) => {
         const noteHighlightButton = makeButton(
-            '',
+            `highlight-note-${noteIndex}`,
             note,
             ['pill','highlight'],
             {id:noteIndex,type:'note'}
@@ -71,7 +73,7 @@ const displayMenu = (
     // Add Intervals Buttons
     musicSet.intervals.forEach((interval, intervalIndex) => {
         const intervalHighlightButton = makeButton(
-            '',
+            `highlight-note-${intervalIndex}`,
             interval,
             ['pill','highlight'],
             {id:intervalIndex,type:'interval'}

@@ -11,17 +11,24 @@ export const makeFretStore = (
     stringNotes = STRING_NOTES
 ) => {
     return {
+        viewToggle: 'notes',
         stringNotes: stringNotes,
         fretLength: fretLength,
         frets: makeFrets(root, fretLength, stringNotes),
         root: root,
         highlights: {
+            notes: [],
             intervals: []
-        }
+        },
+        setIntervals: makeFrets
     };
 }
 
-const makeFrets = (root = 'E', fretLength = FRET_LENGTH, stringNotes = STRING_NOTES) => {
+const makeFrets = (
+    root = 'E',
+    fretLength = FRET_LENGTH,
+    stringNotes = STRING_NOTES
+) => {
     return [...Array(6)].map(
         (string, stringIndex) => [...Array(fretLength)].map(
             (fret, fretIndex) => {

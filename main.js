@@ -1,12 +1,22 @@
-// Import all necessary classes
-// FretStore for all Fret states
+// Import modules
 import { makeFretStore } from './modules/fretStore.js';
-// Display stuff
 import { mount, displayFretboard, displayMenu } from './modules/display.js';
+import { setEventHandler } from './modules/eventHandler.js';
+import { makeObserverController, addObserver, mutate, fire } from './modules/observer.js';
 
-// Fretboard creator
 const fretStore = makeFretStore();
-let fretboardDisplay = displayFretboard(fretStore);
-let menuDisplay = displayMenu(fretStore);
-mount('#fretboard-viewport', fretboardDisplay);
-mount('#menu-viewport',menuDisplay);
+const observerController = makeObserverController(fretStore);
+addObserver(observerController, () => {
+    const fretboardDisplay = displayFretboard(fretStore);
+    mount('#fretboard-viewport', fretboardDisplay);
+});
+addObserver(observerController, () => {
+    const menuDisplay = displayMenu(fretStore);
+    mount('#menu-viewport', menuDisplay);
+});
+addObserver(observerController, () => {
+    const eventHandler = setEventHandler(fretStore, observerController, mutate);
+});
+fire(observerController);
+
+console.log(observerController);
