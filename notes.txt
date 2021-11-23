@@ -1,27 +1,4 @@
-Finish highlight display
+Add HEX inputs for each highlight
 all use single quotes
 learn how to setup and run linter
-
-
-Main
-    Call  
-Fret model
-    Information
-        Fret interval / notes
-    States
-        Fret highlight states
-Menu creator
-    Create all basic menu items
-    connects all items to correct API calls
-    Set Event Listeners
-        All event triggers
-Fret Creator
-    Draws Fretboard
-    Set Event Listeners
-Display Controller
-    Triggered by state change
-    Draws whatever necessary
-State Manager
-    Takes event listener function calls
-        toggle for highlight for fret (parameter is interval or note)
-        toggle between intervals / notes (parameter is "interval" or "note")
+update readme.md to show overall app structure
