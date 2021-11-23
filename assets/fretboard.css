@@ -1,0 +1,101 @@
+:root {
+    --interval-0: inherit;
+    --interval-1: inherit;
+    --interval-2: inherit;
+    --interval-3: inherit;
+    --interval-4: inherit;
+    --interval-5: inherit;
+    --interval-6: inherit;
+    --interval-7: inherit;
+    --interval-8: inherit;
+    --interval-9: inherit;
+    --interval-10: inherit;
+    --interval-11: inherit;
+    --note-0: inherit;
+    --note-1: inherit;
+    --note-2: inherit;
+    --note-3: inherit;
+    --note-4: inherit;
+    --note-5: inherit;
+    --note-6: inherit;
+    --note-7: inherit;
+    --note-8: inherit;
+    --note-9: inherit;
+    --note-10: inherit;
+    --note-11: inherit;
+
+    
+}
+body {
+    font: 15px arial;
+    color: #666;
+}
+#fretboard-viewport {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: none;
+}
+
+#fretboard {
+    width: 1800px;
+}
+.string {
+    display: flex;
+}
+.fret {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    height: 40px;
+    width: 70px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.fret:nth-child(1) {
+    border-left: 3px solid #ccc;
+    border-right: 3px solid #ccc;
+    margin-right: 5px;
+}
+.fret:last-child {
+    border-right: 1px solid #ccc;
+}
+.string:last-child .fret {
+    border-bottom: 1px solid #ccc;
+}
+.fret:nth-child(4),
+.fret:nth-child(6),
+.fret:nth-child(8),
+.fret:nth-child(10),
+.fret:nth-child(13),
+.fret:nth-child(16),
+.fret:nth-child(18),
+.fret:nth-child(20) {
+    background: #f3f3f3;
+}
+
+.fret.interval-0 { background-color: var(--interval-0); }
+.fret.interval-1 { background-color: var(--interval-1); }
+.fret.interval-2 { background-color: var(--interval-2); }
+.fret.interval-3 { background-color: var(--interval-3); }
+.fret.interval-4 { background-color: var(--interval-4); }
+.fret.interval-5 { background-color: var(--interval-5); }
+.fret.interval-6 { background-color: var(--interval-6); }
+.fret.interval-7 { background-color: var(--interval-7); }
+.fret.interval-8 { background-color: var(--interval-8); }
+.fret.interval-9 { background-color: var(--interval-9); }
+.fret.interval-10 { background-color: var(--interval-10); }
+.fret.interval-11 { background-color: var(--interval-11); }
+
+.fret.note-0 { background-color: var(--note-0); }
+.fret.note-1 { background-color: var(--note-1); }
+.fret.note-2 { background-color: var(--note-2); }
+.fret.note-3 { background-color: var(--note-3); }
+.fret.note-4 { background-color: var(--note-4); }
+.fret.note-5 { background-color: var(--note-5); }
+.fret.note-6 { background-color: var(--note-6); }
+.fret.note-7 { background-color: var(--note-7); }
+.fret.note-8 { background-color: var(--note-8); }
+.fret.note-9 { background-color: var(--note-9); }
+.fret.note-10 { background-color: var(--note-10); }
+.fret.note-11 { background-color: var(--note-11); }
+

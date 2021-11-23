@@ -1,0 +1,4 @@
+Add HEX inputs for each highlight
+all use single quotes
+learn how to setup and run linter
+update readme.md to show overall app structure
