@@ -1,5 +1,5 @@
 // Default Music Rules
-import { music, noteToIndex, indexToNote } from './music.js';
+import { music, noteToIndex, indexToNote, intervalToIndex, indexToInterval } from './music.js';
 import { makeFret } from './fret.js';
 
 const FRET_LENGTH = 24;
@@ -33,7 +33,7 @@ const makeFrets = (
                 const fretStringIndex = noteToIndex(stringNotes[stringIndex]) + fretIndex;
                 const note = indexToNote(fretStringIndex % music.notes.length);
                 const fretIntervalIndex = fretStringIndex + music.notes.length - noteToIndex(root);
-                const interval = fretIntervalIndex % music.notes.length;
+                const interval = indexToInterval(fretIntervalIndex % music.notes.length);
                 return makeFret(note, interval);
             }
         )

@@ -1,4 +1,4 @@
-import { music, noteToIndex, indexToNote } from './music.js';
+import { music, noteToIndex, indexToNote, intervalToIndex, indexToInterval } from './music.js';
 
 const mount = (
     id,
@@ -21,7 +21,14 @@ const displayFretboard = (
             const fretElement = document.createElement('div');
             fretElement.id = `fret-${stringIndex}-${fretIndex}`;
             fretElement.classList.add('fret');
-            const fretText = fretStore.viewToggle === 'notes' ? fret.note : fret.interval;
+            let fretText = '';
+            if (fretStore.viewToggle === 'notes') {
+                fretElement.classList.add(`note-${noteToIndex(fret.note)}`);
+                fretText =  fret.note;
+            } else {
+                fretElement.classList.add(`interval-${intervalToIndex(fret.interval)}`);
+                fretText =  fret.interval;
+            }
             const fretTextNode = document.createTextNode(fretText);
             fretElement.appendChild(fretTextNode);
             stringElement.appendChild(fretElement);
@@ -83,6 +90,25 @@ const displayMenu = (
 
     return menuElement;
 }
+const displayHighlights = (
+    fretStore
+) => {
+    clearHighlights();
+    fretStore.highlightIntervals.forEach((interval) => {
+        document.documentElement.style.setProperty(`--interval-${interval}`, '#c99');
+    });
+    fretStore.highlightNotes.forEach((note) => {
+        document.documentElement.style.setProperty(`--note-${note}`, '#99c');
+    });
+}
+const clearHighlights = () => {
+    music.intervals.forEach((interval, intervalIndex) => {
+        document.documentElement.style.setProperty(`--interval-${intervalIndex}`, 'inheret');
+    });
+    music.notes.forEach((note, noteIndex) => {
+        document.documentElement.style.setProperty(`--note-${noteIndex}`, 'inheret');
+    });
+}
 
 const makeTitle = (
     text = '',
@@ -113,4 +139,4 @@ const makeButton = (
     return button;
 };
 
-export { mount, displayFretboard, displayMenu }
+export { mount, displayFretboard, displayMenu, displayHighlights }

@@ -11,6 +11,20 @@
     --interval-9: inherit;
     --interval-10: inherit;
     --interval-11: inherit;
+    --note-0: inherit;
+    --note-1: inherit;
+    --note-2: inherit;
+    --note-3: inherit;
+    --note-4: inherit;
+    --note-5: inherit;
+    --note-6: inherit;
+    --note-7: inherit;
+    --note-8: inherit;
+    --note-9: inherit;
+    --note-10: inherit;
+    --note-11: inherit;
+
+    
 }
 body {
     font: 15px arial;
@@ -71,4 +85,17 @@ body {
 .fret.interval-9 { background-color: var(--interval-9); }
 .fret.interval-10 { background-color: var(--interval-10); }
 .fret.interval-11 { background-color: var(--interval-11); }
+
+.fret.note-0 { background-color: var(--note-0); }
+.fret.note-1 { background-color: var(--note-1); }
+.fret.note-2 { background-color: var(--note-2); }
+.fret.note-3 { background-color: var(--note-3); }
+.fret.note-4 { background-color: var(--note-4); }
+.fret.note-5 { background-color: var(--note-5); }
+.fret.note-6 { background-color: var(--note-6); }
+.fret.note-7 { background-color: var(--note-7); }
+.fret.note-8 { background-color: var(--note-8); }
+.fret.note-9 { background-color: var(--note-9); }
+.fret.note-10 { background-color: var(--note-10); }
+.fret.note-11 { background-color: var(--note-11); }
 

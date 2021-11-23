@@ -28,7 +28,7 @@ const mutate = (
             );
         }
     }
-    console.log('mutate',observerController.store);
+    console.log(observerController.store);
     fire(observerController);
 }
 
