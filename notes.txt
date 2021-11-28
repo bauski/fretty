@@ -1,6 +1,5 @@
-double check to see if I"m using datasets anywere
-Clean redundant code
 cut up display into fretboard and menu stuff separately
+Clean redundant code
 Add in Proxy JS
 all use single quotes
 learn how to setup and run linter

@@ -6,17 +6,17 @@ export const setEventHandler = (
     mutate
 ) => {
     const viewIntervals = document.querySelector('#view-intervals');
-    viewIntervals.addEventListener("click", function(event) {
+    viewIntervals.addEventListener('click', function(event) {
         mutate(observerController, {viewToggle: 'intervals'});
     });
     const viewNotes =  document.querySelector('#view-notes');
-    viewNotes.addEventListener("click", function(event) {
+    viewNotes.addEventListener('click', function(event) {
         mutate(observerController, {viewToggle: 'notes'});
     });
     fretStore.frets.forEach((string, stringIndex) => {
         string.forEach((fret, fretIndex) => {
             const fretElement = document.querySelector(`#fret-${stringIndex}-${fretIndex}`);
-            fretElement.addEventListener("click", function(event) {
+            fretElement.addEventListener('click', function(event) {
                 mutate(observerController, {viewToggle: 'intervals', root: fret.note});
             });
         });

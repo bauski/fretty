@@ -125,17 +125,13 @@ const makeTitle = (
 const makeButton = (
     id = '',
     text = '',
-    classes = [],
-    dataset = {}
+    classes = []
 ) => {
     const button = document.createElement('button');
     button.id = id;
     classes.forEach((classes) => {
         button.classList.add(classes);
     });
-    for (const key in dataset) {
-        button.dataset[key] = dataset[key];
-    }
     const buttonText = document.createTextNode(text);
     button.appendChild(buttonText);
     return button;
