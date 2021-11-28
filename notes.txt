@@ -1,4 +1,7 @@
-Add HEX inputs for each highlight
+double check to see if I"m using datasets anywere
+Clean redundant code
+cut up display into fretboard and menu stuff separately
+Add in Proxy JS
 all use single quotes
 learn how to setup and run linter
 update readme.md to show overall app structure
