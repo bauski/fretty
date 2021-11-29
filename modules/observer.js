@@ -28,7 +28,6 @@ const mutate = (
             );
         }
     }
-    console.log(observerController.store);
     fire(observerController);
 }
 
