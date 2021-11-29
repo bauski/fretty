@@ -23,19 +23,19 @@
     --note-9: inherit;
     --note-10: inherit;
     --note-11: inherit;
-
-    
 }
 body {
     font: 15px arial;
     color: #666;
+}
+.hide {
+    display: none;
 }
 #fretboard-viewport {
     width: 100%;
     overflow-x: scroll;
     overflow-y: none;
 }
-
 #fretboard {
     width: 1800px;
 }
@@ -99,3 +99,21 @@ body {
 .fret.note-10 { background-color: var(--note-10); }
 .fret.note-11 { background-color: var(--note-11); }
 
+.color-picker {
+    display: inline-block;
+    text-align: center;
+    width: 80px;
+}
+
+.pill {
+    margin: 10px;
+    padding: 10px;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}   
+input:checked + .pill {
+    color: #fff;
+    background: #666;
+}

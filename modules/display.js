@@ -61,53 +61,55 @@ const displayMenu = (
     // Add Highlights Title
     const highlightsTitle = makeTitle('Highlights','h3');
     menuElement.appendChild(highlightsTitle);
-    // Add Notes Subtitle
-    const notesSubTitle = makeTitle('Notes','h4');
-    menuElement.appendChild(notesSubTitle);
-    // Add Notes Buttons
-    musicSet.notes.forEach((note, noteIndex) => {
-        const noteHighlightButton = makeButton(
-            `highlight-note-${noteIndex}`,
-            note,
-            ['pill','highlight'],
-            {id:noteIndex,type:'note'}
-        );
-        menuElement.appendChild(noteHighlightButton);
-    });
-    // Add Intervals Subtitle
-    const intervalsSubTitle = makeTitle('Intervals','h4');
-    menuElement.appendChild(intervalsSubTitle);
-    // Add Intervals Buttons
-    musicSet.intervals.forEach((interval, intervalIndex) => {
-        const intervalHighlightButton = makeButton(
-            `highlight-interval-${intervalIndex}`,
-            interval,
-            ['pill','highlight'],
-            {id:intervalIndex,type:'interval'}
-        );
-        menuElement.appendChild(intervalHighlightButton);
-    });
+    if (fretStore.viewToggle === 'notes') {
+        // Add Notes Subtitle
+        const notesSubTitle = makeTitle('Notes','h4');
+        menuElement.appendChild(notesSubTitle);
+        // Add Notes Buttons
+        musicSet.notes.forEach((note, noteIndex) => {
+            const noteHighlightInput = makeColorPicker(
+                `highlight-note-${noteIndex}`,
+                note,
+                fretStore.highlightNotes[noteIndex].color,
+                fretStore.highlightNotes[noteIndex].display
+            );
+            menuElement.appendChild(noteHighlightInput);
+        });
+    } else {        
+        // Add Intervals Subtitle
+        const intervalsSubTitle = makeTitle('Intervals','h4');
+        menuElement.appendChild(intervalsSubTitle);
+        // Add Intervals Buttons
+        musicSet.intervals.forEach((interval, intervalIndex) => {
+            const intervalHighlightInput = makeColorPicker(
+                `highlight-interval-${intervalIndex}`,
+                interval,
+                fretStore.highlightIntervals[intervalIndex].color,
+                fretStore.highlightIntervals[intervalIndex].display
+            );
+            menuElement.appendChild(intervalHighlightInput);
+        });
+    }
 
     return menuElement;
 }
 const displayHighlights = (
     fretStore
 ) => {
-    clearHighlights();
-    fretStore.highlightIntervals.forEach((interval) => {
-        document.documentElement.style.setProperty(`--interval-${interval}`, '#c99');
-    });
-    fretStore.highlightNotes.forEach((note) => {
-        document.documentElement.style.setProperty(`--note-${note}`, '#99c');
-    });
-}
-const clearHighlights = () => {
-    music.intervals.forEach((interval, intervalIndex) => {
-        document.documentElement.style.setProperty(`--interval-${intervalIndex}`, 'inheret');
-    });
-    music.notes.forEach((note, noteIndex) => {
-        document.documentElement.style.setProperty(`--note-${noteIndex}`, 'inheret');
-    });
+    for (const [interval, {color, display}] of Object.entries(fretStore.highlightIntervals)) {
+        if (display) {
+            document.documentElement.style.setProperty(`--interval-${interval}`, color);
+        } else {
+            document.documentElement.style.setProperty(`--interval-${interval}`, 'inherit');
+        }
+    }
+    for (const [note, {color, display}] of Object.entries(fretStore.highlightNotes)) {
+        if (display) {
+             document.documentElement.style.setProperty(`--note-${note}`, color);
+        } else {
+            document.documentElement.style.setProperty(`--note-${note}`, 'inherit');
+        }
+    }
 }
 
 const makeTitle = (
@@ -123,20 +125,48 @@ const makeTitle = (
 const makeButton = (
     id = '',
     text = '',
-    classes = [],
-    dataset = {}
+    classes = []
 ) => {
     const button = document.createElement('button');
     button.id = id;
     classes.forEach((classes) => {
         button.classList.add(classes);
     });
-    for (const key in dataset) {
-        button.dataset[key] = dataset[key];
-    }
     const buttonText = document.createTextNode(text);
     button.appendChild(buttonText);
     return button;
 };
 
+const makeColorPicker = (
+    id = '',
+    text = '',
+    color = '#ffffff',
+    highlight = false
+) => {
+    const container = document.createElement('div');
+    container.classList.add('color-picker');
+    
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `${id}-toggle`;
+    checkbox.classList.add('hide');
+    checkbox.checked = highlight;
+    container.appendChild(checkbox);
+
+    const label = document.createElement('label');
+    label.htmlFor = `${id}-toggle`;
+    label.classList.add('pill');
+    label.classList.add('highight');
+    
+    const labelText = document.createTextNode(text);
+    label.appendChild(labelText);
+    container.appendChild(label);
+    
+    const input = document.createElement('input');
+    input.id = id;
+    input.type = 'color';
+    input.value = color;
+    container.appendChild(input);
+    return container;
+};
 export { mount, displayFretboard, displayMenu, displayHighlights }

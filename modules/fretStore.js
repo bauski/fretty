@@ -1,6 +1,7 @@
 // Default Music Rules
 import { music, noteToIndex, indexToNote, intervalToIndex, indexToInterval } from './music.js';
 import { makeFret } from './fret.js';
+import { colors } from './colors.js'
 
 const FRET_LENGTH = 24;
 const STRING_NOTES = ['E', 'B', 'G', 'D', 'A', 'E'];
@@ -16,8 +17,8 @@ export const makeFretStore = (
         fretLength: fretLength,
         frets: makeFrets(root, fretLength, stringNotes),
         root: root,
-        highlightNotes: [],
-        highlightIntervals: [],
+        highlightNotes: makeHighlights(music.notes, colors),
+        highlightIntervals: makeHighlights(music.intervals, colors),
         setIntervals: makeFrets
     };
 }
@@ -38,4 +39,18 @@ const makeFrets = (
             }
         )
     )
+}
+
+const makeHighlights = (
+    musicArray,
+    colors
+) => {
+    const musicSet = {};
+    musicArray.forEach((note, index) => {
+        musicSet[index] = {
+            color: colors[index],
+            display: false
+        };
+    });
+    return musicSet;
 }

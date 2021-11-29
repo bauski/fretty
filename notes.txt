@@ -1,4 +1,6 @@
-Add HEX inputs for each highlight
+cut up display into fretboard and menu stuff separately
+Clean redundant code
+Add in Proxy JS
 all use single quotes
 learn how to setup and run linter
 update readme.md to show overall app structure
