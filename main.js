@@ -20,4 +20,5 @@ addObserver(observerController, () => {
 addObserver(observerController, () => {
     const eventHandler = setEventHandler(fretStore, observerController, mutate);
 });
-fire(observerController);
+fretStore.highlightNotes[3].display = true;
+mutate(observerController, {highlightNotes: fretStore.highlightNotes});
