@@ -43,28 +43,31 @@ const displayMenu = (
     musicSet = music
 ) => {
     const menuElement = document.createElement('div');
-    const viewsTitle = makeTitle('Views','h3');
+    menuElement.classList.add('menu');
+    const viewElement = document.createElement('div');
+    viewElement.classList.add('view-menu');
+    const viewsTitle = makeTitle('Views','h2');
     menuElement.appendChild(viewsTitle);
     // Add view buttons
     const notesButton = makeButton(
         'view-notes',
         'Notes',
-        ['pill']
+        ['pill'],
+        fretStore.viewToggle
     );
-    menuElement.appendChild(notesButton);
+    viewElement.appendChild(notesButton);
     const intervalsButton = makeButton(
         'view-intervals',
         'Intervals',
-        ['pill']
+        ['pill'],
+        fretStore.viewToggle
     );
-    menuElement.appendChild(intervalsButton);
+    viewElement.appendChild(intervalsButton);
+    menuElement.appendChild(viewElement);
     // Add Highlights Title
-    const highlightsTitle = makeTitle('Highlights','h3');
+    const highlightsTitle = makeTitle('Highlights','h2');
     menuElement.appendChild(highlightsTitle);
     if (fretStore.viewToggle === 'notes') {
-        // Add Notes Subtitle
-        const notesSubTitle = makeTitle('Notes','h4');
-        menuElement.appendChild(notesSubTitle);
         // Add Notes Buttons
         musicSet.notes.forEach((note, noteIndex) => {
             const noteHighlightInput = makeColorPicker(
@@ -76,9 +79,6 @@ const displayMenu = (
             menuElement.appendChild(noteHighlightInput);
         });
     } else {        
-        // Add Intervals Subtitle
-        const intervalsSubTitle = makeTitle('Intervals','h4');
-        menuElement.appendChild(intervalsSubTitle);
         // Add Intervals Buttons
         musicSet.intervals.forEach((interval, intervalIndex) => {
             const intervalHighlightInput = makeColorPicker(
@@ -125,13 +125,17 @@ const makeTitle = (
 const makeButton = (
     id = '',
     text = '',
-    classes = []
+    classes = [],
+    state
 ) => {
     const button = document.createElement('button');
     button.id = id;
     classes.forEach((classes) => {
         button.classList.add(classes);
     });
+    if (state === text.toLowerCase()) {
+        button.classList.add('active');
+    }
     const buttonText = document.createTextNode(text);
     button.appendChild(buttonText);
     return button;
@@ -166,6 +170,7 @@ const makeColorPicker = (
     input.id = id;
     input.type = 'color';
     input.value = color;
+    input.classList.add('color-input');
     container.appendChild(input);
     return container;
 };

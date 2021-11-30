@@ -35,6 +35,7 @@ body {
     width: 100%;
     overflow-x: scroll;
     overflow-y: none;
+    margin: 0 0 30px;
 }
 #fretboard {
     width: 1800px;
@@ -99,20 +100,53 @@ body {
 .fret.note-10 { background-color: var(--note-10); }
 .fret.note-11 { background-color: var(--note-11); }
 
+h2 {
+    margin: 15px 0 0;
+}
+
+.view-menu {
+    display: flex;
+    margin: 0 0 30px 0;
+}
+.view-menu .pill {
+    margin-right: 10px;
+    width: 200px;
+}
+.view-menu .pill.active {
+    background: #666;
+    color: #fff;
+}
 .color-picker {
     display: inline-block;
     text-align: center;
     width: 80px;
+    margin: 0 10px 15px 0;
 }
-
 .pill {
-    margin: 10px;
+    margin: 10px 0 5px;
     padding: 10px;
     display: block;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
-}   
+}
+.color-input {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: #fff;
+    border: 0;
+    height: 40px;
+}
+@media (max-width: 400px) {
+    .color-picker {
+        width: 30%;
+    }
+}@media (max-width: 600px) {
+    .view-menu .pill {
+        width: 50%;
+    }
+}
 input:checked + .pill {
     color: #fff;
     background: #666;
