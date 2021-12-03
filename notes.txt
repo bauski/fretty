@@ -1,7 +1,5 @@
-Add in Proxy JS - new brach
+add in service worker for offline use
+update readme.md to show overall app structure
 cut up display into fretboard and menu stuff separately
 Clean redundant code
-Make design mobile friendly - new branch
-add in service worker for offline use
 learn how to setup and run linter
-update readme.md to show overall app structure
