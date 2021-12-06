@@ -22,3 +22,10 @@ addObserver(observerController, () => {
 });
 fretStore.highlightNotes[3].display = true;
 mutate(observerController, {highlightNotes: fretStore.highlightNotes});
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./serviceWorker.js')
+            .then(console.log('sw registered'));
+    });
+}
