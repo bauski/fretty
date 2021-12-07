@@ -1,4 +1,3 @@
-update readme.md to show overall app structure
 cut up display into fretboard and menu stuff separately
 Clean redundant code
 learn how to setup and run linter
