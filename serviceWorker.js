@@ -1,16 +1,14 @@
 const cacheName = 'fretty.cache.0.02';
 var urlsToCache = [
-    '/',
-    '/modules/colors.js',
-    '/modules/display.js',
-    '/modules/eventHandler.js',
-    '/modules/fret.js',
-    '/modules/fretStore.js',
-    '/modules/music.js',
-    '/modules/observer.js',
-    '/index.html',
-    '/main.js',
-    '/assets/fretboard.css'
+    './modules/colors.js',
+    './modules/display.js',
+    './modules/eventHandler.js',
+    './modules/fret.js',
+    './modules/fretStore.js',
+    './modules/music.js',
+    './modules/observer.js',
+    './assets/fretboard.css',
+    './index.html'
 ];
 
 self.addEventListener('install', event => {
