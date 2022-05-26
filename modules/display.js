@@ -48,7 +48,22 @@ const displayMenu = (
     viewElement.classList.add('view-menu');
     const viewsTitle = makeTitle('Views','h2');
     menuElement.appendChild(viewsTitle);
-    
+    // Add view buttons
+    const notesButton = makeButton(
+        'view-notes',
+        'Notes',
+        ['pill'],
+        fretStore.viewToggle
+    );
+    viewElement.appendChild(notesButton);
+    const intervalsButton = makeButton(
+        'view-intervals',
+        'Intervals',
+        ['pill'],
+        fretStore.viewToggle
+    );
+    viewElement.appendChild(intervalsButton);
+    menuElement.appendChild(viewElement);
     // Add Highlights Title
     const highlightsTitle = makeTitle('Highlights','h2');
     menuElement.appendChild(highlightsTitle);
