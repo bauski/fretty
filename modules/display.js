@@ -48,6 +48,23 @@ const displayMenu = (
     viewElement.classList.add('view-menu');
     const viewsTitle = makeTitle('Views','h2');
     menuElement.appendChild(viewsTitle);
+    
+    const high_title = makeTitle('Highlights','h2');
+    menuElement.appendChild(high_title);
+    if (fretStore.viewToggle === 'notes') {
+        musicSet.notes.forEach((note, noteIndex) => 
+        {const button = Picker(`highlight-note-${noteIndex}`,note,fretStore.highlightNotes[noteIndex].color,fretStore.highlightNotes[noteIndex].display);
+            menuElement.appendChild(button);});
+} else {        
+    musicSet.intervals.forEach((interval, intervalIndex) => {
+        var intbutton = Picker(
+            `highlight-interval-${intervalIndex}`,
+            interval,
+                fretStore.highlightIntervals[intervalIndex].color,
+            fretStore.highlightIntervals[intervalIndex].display
+        );
+        menuElement.appendChild(intbutton);
+});}
 
     return menuElement;
 }
