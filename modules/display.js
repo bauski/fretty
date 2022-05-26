@@ -49,22 +49,32 @@ const displayMenu = (
     const viewsTitle = makeTitle('Views','h2');
     menuElement.appendChild(viewsTitle);
     
-    const high_title = makeTitle('Highlights','h2');
-    menuElement.appendChild(high_title);
+    // Add Highlights Title
+    const highlightsTitle = makeTitle('Highlights','h2');
+    menuElement.appendChild(highlightsTitle);
     if (fretStore.viewToggle === 'notes') {
-        musicSet.notes.forEach((note, noteIndex) => 
-        {const button = Picker(`highlight-note-${noteIndex}`,note,fretStore.highlightNotes[noteIndex].color,fretStore.highlightNotes[noteIndex].display);
-            menuElement.appendChild(button);});
-} else {        
-    musicSet.intervals.forEach((interval, intervalIndex) => {
-        var intbutton = Picker(
-            `highlight-interval-${intervalIndex}`,
-            interval,
+        // Add Notes Buttons
+        musicSet.notes.forEach((note, noteIndex) => {
+            const noteHighlightInput = makeColorPicker(
+                `highlight-note-${noteIndex}`,
+                note,
+                fretStore.highlightNotes[noteIndex].color,
+                fretStore.highlightNotes[noteIndex].display
+            );
+            menuElement.appendChild(noteHighlightInput);
+        });
+    } else {        
+        // Add Intervals Buttons
+        musicSet.intervals.forEach((interval, intervalIndex) => {
+            const intervalHighlightInput = makeColorPicker(
+                `highlight-interval-${intervalIndex}`,
+                interval,
                 fretStore.highlightIntervals[intervalIndex].color,
-            fretStore.highlightIntervals[intervalIndex].display
-        );
-        menuElement.appendChild(intbutton);
-});}
+                fretStore.highlightIntervals[intervalIndex].display
+            );
+            menuElement.appendChild(intervalHighlightInput);
+        });
+    }
 
     return menuElement;
 }
